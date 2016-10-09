@@ -15,8 +15,8 @@ rewritekeys = []  # Normally you'd just store these as a dictionary. However, we
 rewritevalues = []  # these rules in the order the user defines them. Iterating through a dictionary doesn't always do that.
 exceptions = []
 # Parameters
-minsyllables = 1
-maxsyllables = 3
+# previously minsyllables = 1, deleted because it would fix this value for any minsylls in the rule file
+# previously minsyllables = 3, deleted because it would fix this value for any maxsylls in the rule file
 showrejected = False
 show_pre_rewrite = False
 show_rewrite_trigger = False
@@ -192,14 +192,14 @@ try:
             print(param[0] + " is not a valid parameter. Make sure  you have spelled the parameter name correctly.")
         elif param[0].strip() == 'minsylls':
             try:
-                minSyllables = int(param[1])
+                minsylls = int(param[1]) # previously minSyllables
             except ValueError:
-                print(rules[i] + " is an invalid parameter declaration. Using default value of minsylls: " + str(minSyllables))
+                print(rules[i] + " is an invalid parameter declaration. Using default value of minsylls: " + str(minsylls)) #previously minSyllables
         elif param[0].strip() == 'maxsylls':
             try:
-                maxSyllables = int(param[1])
+                maxsylls = int(param[1]) #previously maxSyllables
             except ValueError:
-                print(rules[i] + " is an invalid parameter declaration. Using default value of minsylls: " + str(maxSyllables))
+                print(rules[i] + " is an invalid parameter declaration. Using default value of minsylls: " + str(maxsylls)) #previously maxSyllables
         elif param[0].strip() == 'showrejected':
             showrejected = True if param[1].strip() == 'True' else False
         elif param[0].strip() == 'show_pre_rewrite':
@@ -324,7 +324,7 @@ for n in range(0, numwords):
     word = ""
     while check_illegal("#" + word + "%"):
         word = ""
-        size = random.randint(minsyllables, maxsyllables)
+        size = random.randint(minsylls, maxsylls) #previously minsyllables, maxsyllables
         for s in range(0, size + 1):
             word = word + generatesyllable(s, size - 1)
     if show_pre_rewrite:
